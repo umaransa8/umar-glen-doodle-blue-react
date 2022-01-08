@@ -1,23 +1,23 @@
 import react, { useEffect, useState } from 'react';
 import MUIDataTable from "mui-datatables";
-import EmployeeFormModal from './EmployeeFormModal';
+import ContactFormModal from './ContactFormModal';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { ConfirmProvider, useConfirm } from 'material-ui-confirm';
 import { AccountCircle, Delete, Pinch } from '@mui/icons-material';
 import '../modalStyle.css'
-import EmployeeDetailModal from './EmployeeDetailModal';
+import ContactDetailModal from './ContactDetailModal';
 const deleteStyle = {
   backgroundColor: 'Tomato'
 }
 const viewStyle = {
   backgroundColor: 'SlateBlue'
 }
-export default function EmployeeList() {
+export default function ContactList() {
 
   const stateValue = useSelector((state) => state);
   const confirm = useConfirm();
-  const employees = stateValue.employees;
+  const Contacts = stateValue.Contacts;
 
 
   const dispatch = useDispatch();
@@ -31,7 +31,7 @@ export default function EmployeeList() {
 
   const columns = [
     {
-      label: "Employee Id",
+      label: "Contact Id",
       name: "id",
       options: {
         filter: true,
@@ -39,7 +39,7 @@ export default function EmployeeList() {
       }
     },
     {
-      name: "empName",
+      name: "contactName",
       label: "Name",
       options: {
         filter: true,
@@ -47,16 +47,16 @@ export default function EmployeeList() {
       }
     },
     {
-      name: 'age',
-      label: "Age",
+      name: "email",
+      label: "Email",
       options: {
         filter: true,
         sort: true,
       }
     },
     {
-      name: 'gender',
-      label: "Gender",
+      name: "company",
+      label: "Company",
       options: {
         filter: true,
         sort: true,
@@ -70,7 +70,7 @@ export default function EmployeeList() {
         filter: false,
         sort: false,
         customBodyRender: value => {
-          const userid = employees.find(employee => employee.id === value);
+          const userid = Contacts.find(Contact => Contact.id === value);
           return (
             <Button variant="contained" onClick={() => editPopUp(userid)} endIcon={<Pinch />}>Edit</Button>
           );
@@ -86,12 +86,12 @@ export default function EmployeeList() {
         sort: false,
         customBodyRender: value => {
 
-          const userid = employees.filter(employee => employee.id !== value);
+          const userid = Contacts.filter(Contact => Contact.id !== value);
           console.log(userid);
           const handleDelete = value => {
             confirm({ description: `This will permanently delete..Are you sure ?.` })
               .then(() => dispatch({
-                type: 'DELETE_EMPLOYEE',
+                type: 'DELETE_Contact',
                 data: userid
               }))
               .catch(() => console.log("Deletion cancelled."));
@@ -116,7 +116,7 @@ export default function EmployeeList() {
         sort: false,
         customBodyRender: value => {
 
-          const userid = employees.filter(employee => employee.id === value);
+          const userid = Contacts.filter(Contact => Contact.id === value);
            return (
             <Button style={viewStyle} variant="contained" onClick= {()=>popDetailupOpen(userid)} endIcon={<AccountCircle />}>View</Button>
            );
@@ -144,7 +144,7 @@ export default function EmployeeList() {
   const editPopUp = (id) => {
     setEdit(true);
     dispatch({
-      type: 'EDIT_EMPLOYEE',
+      type: 'EDIT_Contact',
       data: id
     })
     setFormValues(id);
@@ -179,7 +179,7 @@ export default function EmployeeList() {
   const popDetailupOpen = (userid) => {
     setDetailPopOpen(popDetailOpen => !popDetailOpen);
     dispatch({
-      type: 'EDIT_EMPLOYEE',
+      type: 'EDIT_Contact',
       data: userid
     })
     setFormValues(userid);
@@ -191,11 +191,11 @@ export default function EmployeeList() {
   }
   return (
     <div>
-      <EmployeeFormModal formValues={formValues} edit={edit} employeeId={makeid(9)} popupClose={popupClose} open={popOpen} />
-     <EmployeeDetailModal popDetailupClose={popDetailupClose} formValues={formValues} open = {popDetailOpen} detail={detail} detailPopupOpen= {popDetailupOpen} />
+      <ContactFormModal formValues={formValues} edit={edit} ContactId={makeid(9)} popupClose={popupClose} open={popOpen} />
+     <ContactDetailModal popDetailupClose={popDetailupClose} formValues={formValues} open = {popDetailOpen} detail={detail} detailPopupOpen= {popDetailupOpen} />
       <MUIDataTable
-        title={<div><h3 >Employee List<Button style={{ marginLeft: '2%' }} onClick={popupOpen} color="primary" variant="contained" size="small">  Add Employee </Button></h3></div>}
-        data={employees}
+        title={<div><h3 >Contact List<Button style={{ marginLeft: '2%' }} onClick={popupOpen} color="primary" variant="contained" size="small">  Add Contact </Button></h3></div>}
+        data={Contacts}
         columns={columns}
         options={options}
 

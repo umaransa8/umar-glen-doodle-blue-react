@@ -16,10 +16,8 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
-import EmployeeList from './EmployeeList'
-import MyForm from './Example'
-import logo from '../1.png';
+import ContactList from './ContactList'
+
 import { BrowserRouter as Router, Link, Routes, Route} from 'react-router-dom';
 const drawerWidth = 240;
 
@@ -139,7 +137,7 @@ export default function MiniDrawer() {
           <ListItemIcon>
            <InboxIcon /> 
           </ListItemIcon>
-          <ListItemText primary={<Link to="/" exact > Employee List(Redux) </Link> }  />
+          <ListItemText primary={<Link to="/" exact > Contact List(Redux) </Link> }  />
         </ListItem>
          
       
@@ -151,7 +149,7 @@ export default function MiniDrawer() {
         <DrawerHeader />
         <Typography >
             <Routes>
-              <Route path="/" exact element={<EmployeeList/>}/>
+              <Route path="/" exact element={<ContactList/>}/>
            
               
             </Routes>

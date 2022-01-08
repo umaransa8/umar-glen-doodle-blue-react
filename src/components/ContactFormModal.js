@@ -29,11 +29,11 @@ const style2 = {
     width:'50% !important'
 };
 
-export default function EmployeeFormModal(props) {
-  var [formValue, setFormValue] = React.useState({id:"",empName:"", gender:"male", role:1});
+export default function ContactFormModal(props) {
+  var [formValue, setFormValue] = React.useState({id:"",contactName:"", gender:"male", role:1});
   var [formValid, setFormValid] = React.useState(false);
   const stateValue =  useSelector((state)=>state);
-  const employees = stateValue.employees;
+  const Contacts = stateValue.Contacts;
   const dispatch = useDispatch();
   React.useEffect(()=>{
    // alert(props.edit);
@@ -42,7 +42,7 @@ export default function EmployeeFormModal(props) {
        setFormValue(props.formValues); 
     }
     else {   
-      setFormValue({id:props.employeeId});  
+      setFormValue({id:props.ContactId});  
       console.log("add");
     }
  },[props.edit,props.edit]);
@@ -50,7 +50,7 @@ export default function EmployeeFormModal(props) {
 
 
 
-     // setFormValue(employeeEdit.formValue)
+     // setFormValue(ContactEdit.formValue)
     
      
 
@@ -68,7 +68,7 @@ export default function EmployeeFormModal(props) {
       setFormValid(false);
     }
     else {
-      if(formValue.id && formValue.empName && formValue.salary && formValue.address && formValue.role)
+      if(formValue.id && formValue.contactName && formValue.salary && formValue.address && formValue.role)
        setFormValid(true);
     }
    
@@ -96,7 +96,7 @@ function makeid(length) {
 function handleSubmit() {
  // alert("His");
   dispatch({
-    type : "EMPLOYEE_ADD",
+    type : "Contact_ADD",
     data:formValue
   });
   setFormValue({id:makeid(9)})
@@ -106,21 +106,21 @@ function handleSubmit() {
 
 
 function updateData() {
-  const filteredEmployess = employees.filter(x=>x.id === formValue.id);
+  const filteredEmployess = Contacts.filter(x=>x.id === formValue.id);
   console.log("filteredEmployess",filteredEmployess);
-  var newData = employees.map(el => {
+  var newData = Contacts.map(el => {
     if(el.id == formValue.id)  {
-      return Object.assign({}, el, {empName:formValue.empName, role:formValue.role, age:formValue.age, email:formValue.email, salary:formValue.salary, gender:formValue.gender})
+      return Object.assign({}, el, {contactName:formValue.contactName, role:formValue.role, age:formValue.age, email:formValue.email, salary:formValue.salary, gender:formValue.gender, company:formValue.company})
     }
     return el
 });
 console.log(newData);
 dispatch({
-  type : "UPDATE_EMPLOYEE",
+  type : "UPDATE_Contact",
   data:formValue
 });
 dispatch({
-  type : "EMPLOYEE_LIST",
+  type : "Contact_LIST",
   data:newData
 });
 props.popupClose();
@@ -146,13 +146,13 @@ props.popupClose();
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <h3 style={{textAlign:"center"}}>{!props.edit ? `ADD EMPLOYEE  ${props.employeeId}` :`UPDATE EMPLOYEE ${props.formValues.id}` }</h3>
+          <h3 style={{textAlign:"center"}}>{!props.edit ? `ADD Contact  ${props.ContactId}` :`UPDATE Contact ${props.formValues.id}` }</h3>
         <Grid container spacing={2}>
           <Grid item lg={6} md={6} sm ={12}>
-              <TextField    inputProps={{ disabled: true }} id="standard-error-helper-text" name='id'  error={formValue.hasOwnProperty("id") && formValue.id === ""} helperText={formValue.id === "" ? 'Employee Id is Required' : ' '} value={formValue.id} onChange = {handleChange} label="Employeer Id * "  variant="standard" />
+              <TextField    inputProps={{ disabled: true }} id="standard-error-helper-text" name='id'  error={formValue.hasOwnProperty("id") && formValue.id === ""} helperText={formValue.id === "" ? 'Contact Id is Required' : ' '} value={formValue.id} onChange = {handleChange} label="Contactr Id * "  variant="standard" />
           </Grid>
           <Grid item lg={6} md={6} sm ={12}>
-               <TextField  id="standard-error-helper-text" name='empName'  error={formValue.hasOwnProperty("empName") && formValue.empName === ""} helperText={formValue.empName === "" ? 'Employee Name is Required' : ' '} value={formValue.empName} onChange = {handleChange} label="Employees's Name * "  variant="standard" />
+               <TextField  id="standard-error-helper-text" name='contactName'  error={formValue.hasOwnProperty("contactName") && formValue.contactName === ""} helperText={formValue.contactName === "" ? 'Contact Name is Required' : ' '} value={formValue.contactName} onChange = {handleChange} label="Contacts's Name * "  variant="standard" />
           </Grid>
 
           <Grid item lg={6} md={6} sm ={12}>
@@ -160,11 +160,14 @@ props.popupClose();
           </Grid>
 
           <Grid item lg={6} md={6} sm ={12}>
-            <TextField  type="number" id="standard-error-helper-text" label="Age * "  name='age' value={formValue.age}  onChange = {handleChange}    variant="standard" />
+            <TextField  type="number" id="standard-error-helper-text" label="Age * "   error={formValue.hasOwnProperty("age") && formValue.age === ""} helperText={formValue.age === "" ? 'Age is Required' : ' '}  name='age' value={formValue.age}  onChange = {handleChange}    variant="standard" />
           </Grid>
 
           <Grid item lg={6} md={6} sm ={12}>
-          <TextField  id="standard-error-helper-text"  type="number"  label="Salary *"   name='salary' value={formValue.salary}  onChange = {handleChange}  variant="standard" />
+          <TextField  id="standard-error-helper-text"   label="Compnay *"   name='company' value={formValue.company}  onChange = {handleChange}  error={formValue.hasOwnProperty("company") && formValue.company === ""} helperText={formValue.company === "" ? 'Company Name is Required' : ' '}  variant="standard" />
+          </Grid>
+          <Grid item lg={6} md={6} sm ={12}>
+          <TextField  id="standard-error-helper-text"  type="number"  label="Salary *"    name='salary' value={formValue.salary}  error={formValue.hasOwnProperty("salary") && formValue.salary === ""} helperText={formValue.salary === "" ? 'Salary is Required' : ' '}   onChange = {handleChange}  variant="standard" />
           </Grid>
 
           <Grid item lg={6} md={6} sm ={12}>
@@ -181,7 +184,7 @@ props.popupClose();
 
     </Grid>
 
-    <Grid item lg={12} md={6} sm ={12}>
+    <Grid item lg={6} md={12} sm ={12}>
      <TextareaAutosize
          minRows={3}
          variant="standard" 
@@ -195,7 +198,7 @@ props.popupClose();
     
            
               <FormLabel component="legend">Gender</FormLabel>
-              <RadioGroup row aria-label="gender" value= {formValue.gender} name="gender">
+              <RadioGroup row aria-label="gender" value= {formValue.gender} onClick={handleChange} name="gender">
                 <FormControlLabel value="male"  control={<Radio />}   label="Male" />
                 <FormControlLabel value="female" control={<Radio />} label="Female" />            
                 <FormControlLabel value="other" control={<Radio />} label="Other" />             
@@ -205,7 +208,7 @@ props.popupClose();
 
          
           <Grid item lg={6} md={6} sm ={12} style={{textAlign:'right'}}>
-           {!props.edit ? <Button color="primary" disabled={!formValid} variant="contained" onClick = {handleSubmit}  >ADD EMPLOYEE</Button> :   <Button color="primary" disabled={!formValid} variant="contained"  onClick = {updateData} >UPDATE EMPLOYEE</Button>}  
+           {!props.edit ? <Button color="primary" disabled={!formValid} variant="contained" onClick = {handleSubmit}  >ADD Contact</Button> :   <Button color="primary" disabled={!formValid} variant="contained"  onClick = {updateData} >UPDATE Contact</Button>}  
            </Grid>
          
          <Grid item lg={6} md={6} sm ={12}>

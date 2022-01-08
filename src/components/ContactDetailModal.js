@@ -25,8 +25,8 @@ const style2 = {
     width:'50% !important'
 };
 
-export default function EmployeeDetailModal(props) {
-  var [formValue, setFormValue] = React.useState({id:"",empName:"", gender:"male", role:1});
+export default function ContactDetailModal(props) {
+  var [formValue, setFormValue] = React.useState({id:"",contactName:"", gender:"male", role:1});
  
   React.useEffect(()=>{
    console.log(props.formValues)
@@ -47,35 +47,56 @@ export default function EmployeeDetailModal(props) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <h3 style={{textAlign:"center"}}>EMPLOYEE DETAILS FOR  {formValue.id} - { formValue.empName}</h3>
+          <h3 style={{textAlign:"center"}}>Contact DETAILS FOR  {formValue.id} - { formValue.contactName}</h3>
          
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="caption table">
-        <caption>Employee Details For {formValue.empName}</caption>
+        <caption>Contact Details For {formValue.contactName}</caption>
        
         <TableBody>
         <TableRow key={formValue.name}>
+        <TableCell component="th" scope="column">
+               Id
+              </TableCell>
+              <TableCell component="th" scope="column">
+                {formValue.id}
+              </TableCell>
+
              <TableCell component="th" scope="column">
                Name
               </TableCell>
               <TableCell component="th" scope="column">
-                {formValue.empName}
+                {formValue.contactName}
               </TableCell>
 
               
-              <TableCell component="th" scope="row">
-               Age
+              
+        </TableRow>
+
+        <TableRow key={formValue.name}>
+        <TableCell component="th" scope="column">
+               Company Name
               </TableCell>
-              <TableCell component="th" scope="row">
-                {formValue.age}
+              <TableCell component="th" scope="column">
+                {formValue.company}
               </TableCell>
+
+             <TableCell component="th" scope="column">
+               Gender
+              </TableCell>
+              <TableCell component="th" scope="column">
+                {formValue.gender}
+              </TableCell>
+
+              
+              
         </TableRow>
         <TableRow key={formValue.gender}>
               <TableCell component="th" scope="row">
-               Gender
+               Company
               </TableCell>
               <TableCell component="th" scope="row">
-                {formValue.gender}
+                {formValue.company}
               </TableCell>
               <TableCell component="th" scope="row">
                Role

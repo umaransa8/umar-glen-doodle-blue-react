@@ -1,31 +1,31 @@
 import react from 'react';
 var initState = {
-    employees:[]
+    Contacts:[]
 }
 
 export default function reducer( state = initState, action) {
 console.log("Before State", state, "Action",action);
  switch(action.type){
-     case 'EMPLOYEE_LIST':
+     case 'Contact_LIST':
          return {
              ...state,
-             employees: action.data
+             Contacts: action.data
          }
-     case 'EMPLOYEE_ADD':
+     case 'Contact_ADD':
          return {
-             ...state, employees: [...state.employees, action.data]
+             ...state, Contacts: [...state.Contacts, action.data]
          }
-     case 'EDIT_EMPLOYEE':
+     case 'EDIT_Contact':
          return {
              ...state, edit: true, formValue: action.data
          }
-     case 'DELETE_EMPLOYEE':
+     case 'DELETE_Contact':
          return {
-             ...state, employees: action.data
+             ...state, Contacts: action.data
          }
-     case 'UPDATE_EMPLOYEE':
+     case 'UPDATE_Contact':
          return {
-             ...state, employees: [ action.data]
+             ...state, Contacts: [ action.data]
          }
 
  }
