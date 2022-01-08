@@ -91,7 +91,7 @@ export default function ContactList() {
           const handleDelete = value => {
             confirm({ description: `This will permanently delete..Are you sure ?.` })
               .then(() => dispatch({
-                type: 'DELETE_Contact',
+                type: 'DELETE_CONTACT',
                 data: userid
               }))
               .catch(() => console.log("Deletion cancelled."));
@@ -144,7 +144,7 @@ export default function ContactList() {
   const editPopUp = (id) => {
     setEdit(true);
     dispatch({
-      type: 'EDIT_Contact',
+      type: 'EDIT_CONTACT',
       data: id
     })
     setFormValues(id);
@@ -179,7 +179,7 @@ export default function ContactList() {
   const popDetailupOpen = (userid) => {
     setDetailPopOpen(popDetailOpen => !popDetailOpen);
     dispatch({
-      type: 'EDIT_Contact',
+      type: 'EDIT_CONTACT',
       data: userid
     })
     setFormValues(userid);

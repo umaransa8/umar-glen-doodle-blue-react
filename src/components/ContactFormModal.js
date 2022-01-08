@@ -96,7 +96,7 @@ function makeid(length) {
 function handleSubmit() {
  // alert("His");
   dispatch({
-    type : "Contact_ADD",
+    type : "CONTACT_ADD",
     data:formValue
   });
   setFormValue({id:makeid(9)})
@@ -110,17 +110,17 @@ function updateData() {
   console.log("filteredEmployess",filteredEmployess);
   var newData = Contacts.map(el => {
     if(el.id == formValue.id)  {
-      return Object.assign({}, el, {contactName:formValue.contactName, role:formValue.role, age:formValue.age, email:formValue.email, salary:formValue.salary, gender:formValue.gender, company:formValue.company})
+      return Object.assign({}, el, {contactName:formValue.contactName, role:formValue.role, age:formValue.age, email:formValue.email, salary:formValue.salary, gender:formValue.gender, company:formValue.company, address:formValue.address})
     }
     return el
 });
 console.log(newData);
 dispatch({
-  type : "UPDATE_Contact",
+  type : "UPDATE_CONTACT",
   data:formValue
 });
 dispatch({
-  type : "Contact_LIST",
+  type : "CONTACT_LIST",
   data:newData
 });
 props.popupClose();

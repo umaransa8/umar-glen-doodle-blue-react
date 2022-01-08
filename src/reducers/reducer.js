@@ -6,24 +6,24 @@ var initState = {
 export default function reducer( state = initState, action) {
 console.log("Before State", state, "Action",action);
  switch(action.type){
-     case 'Contact_LIST':
+     case 'CONTACT_LIST':
          return {
              ...state,
              Contacts: action.data
          }
-     case 'Contact_ADD':
+     case 'CONTACT_ADD':
          return {
              ...state, Contacts: [...state.Contacts, action.data]
          }
-     case 'EDIT_Contact':
+     case 'EDIT_CONTACT':
          return {
              ...state, edit: true, formValue: action.data
          }
-     case 'DELETE_Contact':
+     case 'DELETE_CONTACT':
          return {
              ...state, Contacts: action.data
          }
-     case 'UPDATE_Contact':
+     case 'UPDATE_CONTACT':
          return {
              ...state, Contacts: [ action.data]
          }
